@@ -14,7 +14,6 @@
              $url_end = $_GET['url_end']; 
              $url_tema= $_GET['url_tema']; 
              echo '<div class="row">';
-             echo '<div class="row">';
              echo '<div class="col-4 mt-3"></div>';
              echo '<div class="col-8 mt-3"><h2>'.$url_tema.'</h2></div>';
              echo "</div>";
