@@ -6,6 +6,7 @@ from django.db.models import Func
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, SearchHeadline
 from django.core.paginator import Paginator
 
+
 # Create your views here.
 
 ########################   Video
