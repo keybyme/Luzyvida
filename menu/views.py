@@ -6,7 +6,7 @@ from rv60app.models import Libro , Capitulo, Versiculo
 
 
 def menu_combined(request):
-    books = Libro.objects.all()
+    books = Libro.objects.all().order_by('id')
     chapters = None
     verses = None
     selected_book = None
