@@ -1,0 +1,43 @@
+counter0{% extends 'rv60app/base.html'%}
+
+{% load static  %}
+
+{% block content %}
+
+<h1>Temas Biblicos</h1>
+<form action="">
+    <input type="text" name="busca_tema">
+    <button type="submit">
+        Buscar Tema
+    </button>
+</form>
+<br>
+<div>
+    <ul>
+      {% for tema in page_obj %}
+        <a href="{% url "porcion"  tema.verso_start tema.verso_end tema.titulo%}" target="_blank">{{tema.titulo}}</a><br>
+        {% comment %} <li>{{ tema.titulo }}</li> {% endcomment %}
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div>
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1{% if busca_tema %}&busca_tema={{ busca_tema }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if busca_tema %}&busca_tema={{ busca_tema }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+      {% endif %}
+  
+      <span class="current">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if busca_tema %}&busca_tema={{ busca_tema }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_tema %}&busca_tema={{ busca_tema }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+      {% endif %}
+    </span>
+  </div>
+  
+{% endblock content %}
+
