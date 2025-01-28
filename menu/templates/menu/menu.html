@@ -46,22 +46,30 @@
     <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
 </form>
 </td>
-</tr>
-
- 
+</tr> 
+  
     {% for verse in verses %}
     <tr>
         <td colspan=2> 
+
+    {% for x in holly %}
+        {% if verse.id == x.verso_start %}
+                <div class=" py-1 px-1 rounded" style="background:white; color:Maroon;">
+                <center><p><strong>{{ x.titulo }}</strong></p></center> 
+        {% endif %}  
+    {% endfor %}            
+
     {% if forloop.counter0|divisibleby:2 %}
     <div class=" py-1 px-1 rounded" style="background:DimGray; color:white;">
     {% else %} 
     <div class=" py-1 px-1 rounded" style="background:White; color:black;">
     {% endif %} 
+
+
     <p><strong>{{ verse.numero }}:</strong> {{ verse.contenido }}</p>
         </td>
-    </tr>
+    </tr> 
     {% endfor %}
-
 {% endif %}
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from rv60app.models import Libro , Capitulo, Versiculo
+from rv60app.models import Libro , Capitulo, Versiculo, Tema
 
 
 
@@ -10,13 +10,14 @@ def menu_combined(request):
     chapters = None
     verses = None
     selected_book = None
-    selected_chapter = None
+    selected_chapter = None 
+    selected_tema = None
+    numero_verso = None
 
     book_select = request.GET.get('book_select')  # Selected book
     chapter_select = request.GET.get('chapter_select')  # Selected chapter
-    print(book_select)
-    print(chapter_select)
-
+    holly = Tema.objects.all()
+     
     if book_select:
         selected_book = Libro.objects.get(id=book_select)
         chapters = Capitulo.objects.filter(libros=selected_book) 
@@ -25,6 +26,14 @@ def menu_combined(request):
     if chapter_select:
         selected_chapter = Capitulo.objects.get(id=chapter_select)
         verses = Versiculo.objects.filter(capitulos=selected_chapter)
+        
+        
+        for y in holly:
+            for x in verses:
+                 if x.id == y.verso_start:
+                     selected_tema=(y.titulo)
+                     numero_verso=(x.id)
+                    
 
     # Handle POST for navigating to the next or previous chapter
     if request.method == "POST":
@@ -55,12 +64,16 @@ def menu_combined(request):
                         last_chapter = Capitulo.objects.filter(libros=prev_book).last()
                         if last_chapter:
                             return redirect(f"{request.path}?book_select={prev_book.id}&chapter_select={last_chapter.id}")
-
+    
     context = {
         'books': books,
         'chapters': chapters,
         'verses': verses,
         'selected_book': selected_book,
         'selected_chapter': selected_chapter,
+        'selected_tema': selected_tema,
+        'numero_verso': numero_verso,
+        'holly':holly,
+        
     }
     return render(request, 'menu/menu.html', context)
