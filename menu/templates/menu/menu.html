@@ -3,87 +3,88 @@
 {% block content %}
 <!-- Book Selection -->
 {% comment %} <h4>Select a Book</h4> {% endcomment %}
-<table>
-<tr>
-<td>        
-<form method="get">
-    <select name="book_select" onchange="this.form.submit()"  class="form-select">
-        <option value="">-- Seleccione un Libro --</option>
-        {% for book in books %}
-        <option value="{{ book.id }}" {% if selected_book and book.id == selected_book.id %}selected{% endif %}>
-            {{ book.libro_es }}
-        </option>
-        {% endfor %}
-    </select>
-</form>
-</td>
-<td>
-<!-- Chapter Selection -->
-{% if chapters %}
-{% comment %} <h4>Chapters in {{ selected_book.libro_es }}</h4> {% endcomment %}
-<form method="get">
-    <input type="hidden" name="book_select" value="{{ selected_book.id }}">
-    <select name="chapter_select" onchange="this.form.submit()"  class="form-select">
-        <option value="">-- Seleccione un Capitulo --</option>
-        {% for chapter in chapters %}
-        <option value="{{ chapter.id }}" {% if selected_chapter and chapter.id == selected_chapter.id %}selected{% endif %}>
-            Capitulo {{ chapter.caps_de_libros }}
-        </option>
-        {% endfor %}
-    </select>
-</form>
-{% endif %}
-</td>
-</tr>  
-<!-- Verses Display -->
-{% if verses %}
-<tr>
-    <td colspan=2>
-{% comment %} <h3>Verses in Chapter {{ selected_chapter.caps_de_libros }}</h3> {% endcomment %}
-<form method="post">
-    {% csrf_token %}
-    <button name="prev" value="prev" type="submit" class="btn btn-primary">Capitulo Anterior</button>
-    <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
-</form>
-</td>
-</tr> 
+<div class="container">
+    <div class="row">
+        <div class="col">        
+            <form method="get">
+                <select name="book_select" onchange="this.form.submit()"  class="form-select">
+                <option value="">-- Seleccione un Libro --</option>
+                {% for book in books %}
+                    <option value="{{ book.id }}" {% if selected_book and book.id == selected_book.id %}selected{% endif %}>
+                        {{ book.libro_es }}
+                    </option>
+                {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="col">
+            <!-- Chapter Selection -->
+            {% if chapters %}
+            {% comment %} <h4>Chapters in {{ selected_book.libro_es }}</h4> {% endcomment %}
+            <form method="get">
+                <input type="hidden" name="book_select" value="{{ selected_book.id }}">
+                <select name="chapter_select" onchange="this.form.submit()"  class="form-select">
+                <option value="">-- Seleccione un Capitulo --</option>
+                {% for chapter in chapters %}
+                    <option value="{{ chapter.id }}" {% if selected_chapter and chapter.id == selected_chapter.id %}selected{% endif %}>
+                    Capitulo {{ chapter.caps_de_libros }}
+                    </option>
+                {% endfor %}
+                </select>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    <table>    
+    <!-- Verses Display -->
+    {% if verses %}
+    <tr>
+        <td colspan="2">
+            {% comment %} <h3>Verses in Chapter {{ selected_chapter.caps_de_libros }}</h3> {% endcomment %}
+            <form method="post">
+            {% csrf_token %}
+            <button name="prev" value="prev" type="submit" class="btn btn-primary">Capitulo Anterior</button>
+            <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
+            </form>
+        </td>
+    </tr>  
   
     {% for verse in verses %}
-    <tr>
-        <td colspan=2> 
 
-    {% for x in holly %}
-        {% if verse.id == x.verso_start %}
-                <div class=" py-1 px-1 rounded" style="background:white; color:Maroon;">
-                <center><p><strong>{{ x.titulo }}</strong></p></center> 
+        
+        {% for x in holly %}
+        {% if verse.id == x.verso_start %}       
+        <br>
+        <tr><td colspan="2">
+                <center><strong><h4 style="color:DodgerBlue;">{{ x.titulo }}</h4></strong></center> 
+        </td></tr>        
         {% endif %}  
-    {% endfor %}            
-
-    {% if forloop.counter0|divisibleby:2 %}
-    <div class=" py-1 px-1 rounded" style="background:DimGray; color:white;">
-    {% else %} 
-    <div class=" py-1 px-1 rounded" style="background:White; color:black;">
-    {% endif %} 
-
-
-    <p><strong>{{ verse.numero }}:</strong> {{ verse.contenido }}</p>
-        </td>
-    </tr> 
+        {% endfor %}            
+        <tr>
+            {% if forloop.counter0|divisibleby:2 %}
+            <td valign="top" style="color:red;"><b> {{ verse.numero }}</b></td> 
+            <td>&nbsp;<b>{{ verse.contenido }}</b></td>
+            {% else %} 
+            <td valign="top" style="color:red;"> <b>{{ verse.numero }}</b> </td> 
+            <td>&nbsp;<b>{{ verse.contenido }}</b></td>
+            {% endif %} 
+        </tr>    
+       
+    
     {% endfor %}
-{% endif %}
+    {% endif %}
 
 
-<tr>
-    <td colspan=2>
-{% comment %} <h3>Verses in Chapter {{ selected_chapter.caps_de_libros }}</h3> {% endcomment %}
-<form method="post">
-    {% csrf_token %}
-    <button name="prev" value="prev" type="submit" class="btn btn-primary">Capitulo Anterior</button>
-    <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
-</form>
-</td>
-</tr>
-
-</table>
+    <tr>
+        <td colspan="2">
+            {% comment %} <h3>Verses in Chapter {{ selected_chapter.caps_de_libros }}</h3> {% endcomment %}
+            <form method="post">
+            {% csrf_token %}
+            <button name="prev" value="prev" type="submit" class="btn btn-primary">Capitulo Anterior</button>
+            <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
+            </form>
+        </td>
+    </tr>    
+    </table>
 
 {% endblock content %}
