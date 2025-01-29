@@ -139,8 +139,8 @@ class Doct_verso(models.Model):
 
 class Timeline(models.Model):
     evento = models.CharField(max_length=255, blank=True, null=True)
-    desde = models.IntegerField(help_text="Use negative values for BCE, positive for CE")  # Example: -500 for 500 BCE
-    hasta = models.IntegerField(help_text="Use negative values for BCE, positive for CE")  # Example: -500 for 500 BCE
+    desde = models.IntegerField(null=True)  # Example: -500 for 500 BCE
+    hasta = models.IntegerField(null=True)  # Example: -500 for 500 BCE
     texto = models.TextField(blank=True, null=True)
     class Meta:
         db_table="timeline"
