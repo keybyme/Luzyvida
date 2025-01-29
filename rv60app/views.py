@@ -1,6 +1,6 @@
 from django.db.models import F, Q, Value
 from django.shortcuts import render, redirect
-from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Video, Urls, Doct_exp, Expositor, Timeline, Tdetail
+from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Video, Urls, Doct_exp, Expositor, Timeline
 from django.db import connection
 from django.db.models import Func
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, SearchHeadline
@@ -301,3 +301,44 @@ def urls(request):
     return render(request, 'rv60app/urls.html', context=context)  
 
 ##################################################################################################
+ 
+########################   Timeline
+
+
+def timeline(request):
+    busca_timeline = request.GET.get("busca_timeline")
+    page_number = request.GET.get("page")   
+  
+    if busca_timeline:
+        busca_timeline_unaccented = Func(Value(busca_timeline), function='unaccent')
+        timelines_queryset = Timeline.objects.annotate(
+            unaccented_title=Func('evento', function='unaccent')
+        ).filter(
+            Q(unaccented_title__icontains=busca_timeline_unaccented) 
+        ).order_by('-desde')
+    else:
+        timelines_queryset = Timeline.objects.all().order_by('-desde')
+        differences = []
+        for i in range(0, len(timelines_queryset)):
+            diff = timelines_queryset[i].hasta - timelines_queryset[i].desde
+            differences.append({
+            "desde": timelines_queryset[i].desde,
+            "hasta": timelines_queryset[i].hasta,
+            "evento": timelines_queryset[i].evento,
+            "texto": timelines_queryset[i].texto,
+            "difference": abs(diff), 
+            "d":diff}) # Absolute difference
+            print(diff)      
+   
+    paginator = Paginator(timelines_queryset, 5)
+    page_obj = paginator.get_page(page_number)
+ 
+    context = {
+        'page_obj': page_obj,
+        'busca_timeline': busca_timeline, 
+        'timelines_queryset': timelines_queryset,
+        'differences' : differences,
+    }
+
+    return render(request, 'rv60app/timeline.html', context=context) 
+  

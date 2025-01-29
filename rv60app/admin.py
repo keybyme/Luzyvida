@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Timeline, Tdetail, Expositor, Doct_exp, Video, Urls
+from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Expositor, Doct_exp, Video, Urls, Timeline, Tdetail
 
 
 # Register your models here.
@@ -15,12 +15,12 @@ admin.site.register(Division)
 admin.site.register(Doctrina)
 admin.site.register(Doct_texto)
 admin.site.register(Doct_verso)
-admin.site.register(Timeline)
-admin.site.register(Tdetail)
 admin.site.register(Expositor)
 admin.site.register(Doct_exp)
 admin.site.register(Urls)
 admin.site.register(Video)
+admin.site.register(Timeline)
+admin.site.register(Tdetail)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('titulo',)
     search_fields = ('titulo',)

@@ -13,6 +13,8 @@ urlpatterns = [
   
   path('doctrina', views.doctrina, name="doctrina"),
   
+  path('timeline', views.timeline, name="timeline"),
+  
   path('diccionario', views.diccionario, name="diccionario"),
   
   path('tema', views.tema, name="tema"),

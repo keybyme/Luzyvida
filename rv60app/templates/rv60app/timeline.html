@@ -1,0 +1,50 @@
+{% extends 'rv60app/base.html'%}
+
+{% load static  %}
+{% block content %} 
+
+<h1>Timeline</h1>
+<form action="">
+    <input type="text" name="busca_timeline">
+    <button type="submit" class="btn btn-success">
+        Buscar Evento
+    </button>
+</form>
+<br>
+<table class="table table-striped">
+    <tr>
+    <th>Evento</th>
+    <th>Descripcion</th>
+    <th>Desde</th>
+    <th>Hasta</th>
+    <th>Duración</th>
+    </tr>
+
+
+    {% for x in differences %}
+ 
+    <tr>
+    <td>
+        {{x.evento}}
+    {% comment %} <a href="{% url "timeline_detail"  x.id%}">{{x.evento}}</a> {% endcomment %}
+    </td>
+    <td>
+        {{x.texto}} 
+    </td>
+    <td>
+        {{x.desde}} 
+    </td>
+    <td>
+        {{x.hasta}} 
+    </td>  
+    
+    <td>
+       
+       {{x.d}}
+       
+    </td>   
+    </tr>
+{% endfor%}
+</table>
+{% endblock content %}
+

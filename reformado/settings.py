@@ -82,6 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'churchdb',
         'HOST': 'localhost',
+        # 'HOST': '3.134.4.249',
         'USER': 'postgres',
         'PASSWORD': '2222',
         'PORT':'5432'
