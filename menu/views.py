@@ -25,7 +25,7 @@ def menu_combined(request):
 
     if chapter_select:
         selected_chapter = Capitulo.objects.get(id=chapter_select)
-        verses = Versiculo.objects.filter(capitulos=selected_chapter)
+        verses = Versiculo.objects.filter(capitulos=selected_chapter).order_by('id')
         
         
         for y in holly:

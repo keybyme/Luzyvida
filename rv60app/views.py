@@ -328,7 +328,7 @@ def timeline(request):
             "texto": timelines_queryset[i].texto,
             "difference": abs(diff), 
             "d":diff}) # Absolute difference
-            print(diff)      
+              
    
     paginator = Paginator(timelines_queryset, 5)
     page_obj = paginator.get_page(page_number)
