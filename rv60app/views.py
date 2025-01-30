@@ -318,16 +318,16 @@ def timeline(request):
         ).order_by('-desde')
     else:
         timelines_queryset = Timeline.objects.all().order_by('-desde')
-        differences = []
-        for i in range(0, len(timelines_queryset)):
-            diff = timelines_queryset[i].hasta - timelines_queryset[i].desde
-            differences.append({
-            "desde": timelines_queryset[i].desde,
-            "hasta": timelines_queryset[i].hasta,
-            "evento": timelines_queryset[i].evento,
-            "texto": timelines_queryset[i].texto,
-            "difference": abs(diff), 
-            "d":diff}) # Absolute difference
+    differences = []
+    for i in range(0, len(timelines_queryset)):
+        diff = timelines_queryset[i].hasta - timelines_queryset[i].desde
+        differences.append({
+        "desde": timelines_queryset[i].desde,
+        "hasta": timelines_queryset[i].hasta,
+        "evento": timelines_queryset[i].evento,
+        "texto": timelines_queryset[i].texto,
+        "difference": abs(diff), 
+        "d":diff}) # Absolute difference
               
    
     paginator = Paginator(timelines_queryset, 5)
