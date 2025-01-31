@@ -1,4 +1,4 @@
-from django.db.models import F, Q, Value
+from django.db.models import Func, Q, Value
 from django.shortcuts import render, redirect
 from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Video, Urls, Doct_exp, Expositor, Timeline
 from django.db import connection
@@ -318,6 +318,10 @@ def timeline(request):
         ).order_by('-desde')
     else:
         timelines_queryset = Timeline.objects.all().order_by('-desde')
+    # Set up pagination (5 items per page, you can adjust this number)
+    paginator = Paginator(timelines_queryset, 5)
+    page_obj = paginator.get_page(page_number)    
+    print(page_obj)
     differences = []
     for i in range(0, len(timelines_queryset)):
         diff = timelines_queryset[i].hasta - timelines_queryset[i].desde
@@ -329,9 +333,7 @@ def timeline(request):
         "difference": abs(diff), 
         "d":diff}) # Absolute difference
               
-    # Set up pagination (5 items per page, you can adjust this number)
-    paginator = Paginator(timelines_queryset, 5)
-    page_obj = paginator.get_page(page_number)
+  
  
     context = {
         'page_obj': page_obj,
@@ -343,20 +345,18 @@ def timeline(request):
     return render(request, 'rv60app/timeline.html', context=context) 
   
   
- 
+ ########################   Palabra de hoy
 
 from datetime import date
 
 def hoy(request):
     # Get today's date
     today = date.today()
-    print (today)
     
     # Extract month and day
     today_month = today.month
     today_day = today.day
-    print(today_month)
-    print(today_day)
+ 
     
     context = {
     'today_month' : today_month,

@@ -18,11 +18,10 @@
     <th>Desde</th>
     <th>Hasta</th>
     <th>Duración</th>
-    </tr>
-
-
-    {% for x in differences %}
- 
+    </tr> 
+  
+  
+    {% for x in page_obj %}
     <tr>
     <td>
         {{x.evento}}
@@ -37,14 +36,30 @@
     <td>
         {{x.hasta}} 
     </td>  
-    
     <td>
-       
        {{x.d}}
-       
     </td>   
     </tr>
-{% endfor%}
+    {% endfor%}
+    <tr><td>
+        <div>
+            <span class="step-links">
+              {% if page_obj.has_previous %}
+                <a href="?page=1{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+              {% endif %}
+          
+              <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+              </span>
+          
+              {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+              {% endif %}
+            </span>
+          </div>  
+    </td></tr>    
 </table>
 {% endblock content %}
 
