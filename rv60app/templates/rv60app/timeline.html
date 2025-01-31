@@ -45,8 +45,8 @@
         <div>
             <span class="step-links">
               {% if page_obj.has_previous %}
-                <a href="?page=1{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
-                <a href="?page={{ page_obj.previous_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+                <a href="?page=1{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
               {% endif %}
           
               <span class="current">
@@ -54,8 +54,8 @@
               </span>
           
               {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+                <a href="?page={{ page_obj.next_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
               {% endif %}
             </span>
           </div>  
