@@ -307,7 +307,7 @@ def urls(request):
 
 def timeline(request):
     busca_timeline = request.GET.get("busca_timeline")
-    page_number = request.GET.get("page")   
+    page_number = request.GET.get("page")  # Get the page number from the request 
   
     if busca_timeline:
         busca_timeline_unaccented = Func(Value(busca_timeline), function='unaccent')
@@ -329,7 +329,7 @@ def timeline(request):
         "difference": abs(diff), 
         "d":diff}) # Absolute difference
               
-   
+    # Set up pagination (5 items per page, you can adjust this number)
     paginator = Paginator(timelines_queryset, 5)
     page_obj = paginator.get_page(page_number)
  
@@ -342,3 +342,25 @@ def timeline(request):
 
     return render(request, 'rv60app/timeline.html', context=context) 
   
+  
+ 
+
+from datetime import date
+
+def today_date_view(request):
+    # Get today's date
+    today = date.today()
+    print (today)
+    
+    # Extract month and day
+    today_month = today.month
+    today_day = today.day
+    print(today_month)
+    print(today_day)
+    
+    context = {
+    'today_month' : today_month,
+    'today_day' : today_day,
+    }
+    
+    return render(request, 'rv60app/hoy.html', context=context)

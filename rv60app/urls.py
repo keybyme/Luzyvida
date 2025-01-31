@@ -27,4 +27,6 @@ urlpatterns = [
   
   path('doctrina/<pk>/', views.doctrina_detail_view, name='doctrina_detail'),
   
+  path('today_date_view', views.today_date_view, name="today_date_view"),
+  
 ]
