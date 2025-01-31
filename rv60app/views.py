@@ -347,7 +347,7 @@ def timeline(request):
 
 from datetime import date
 
-def today_date_view(request):
+def hoy(request):
     # Get today's date
     today = date.today()
     print (today)
