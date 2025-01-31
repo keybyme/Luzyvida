@@ -318,8 +318,8 @@ def timeline(request):
         ).order_by('-desde')
     else:
         timelines_queryset = Timeline.objects.all().order_by('-desde')
-    # Set up pagination (25 items per page, you can adjust this number)
-    paginator = Paginator(timelines_queryset, 25)
+    # Set up pagination (20 items per page, you can adjust this number)
+    paginator = Paginator(timelines_queryset, 20)
     page_obj = paginator.get_page(page_number)    
     print(page_obj)
     differences = []
