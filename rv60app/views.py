@@ -77,11 +77,14 @@ def chapter(request):
     return render(request, "index.html")    
 
 ########################   Home
+def get_client_ip(request):
+    ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 def home(request):
-    
+    print(get_client_ip(request))
       
-      return render(request, 'rv60app/index.html')
+    return render(request, 'rv60app/index.html')
 
 ########################   RV Lectura
 
