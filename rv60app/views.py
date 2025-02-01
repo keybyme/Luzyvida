@@ -77,13 +77,22 @@ def chapter(request):
     return render(request, "index.html")    
 
 ########################   Home
+from ipaddress import ip_address
+
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
+        ips = [ip.strip() for ip in x_forwarded_for.split(',')]
     else:
-        ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
-    return ip
+        ips = [request.META.get('REMOTE_ADDR')]
+
+    # Prioritize IPv4 addresses
+    for ip in ips:
+        if ip and not ip_address(ip).version == 6:  # Skip IPv6 addresses
+            return ip
+
+    # If no IPv4 was found, return the first IP (IPv6)
+    return ips[0] if ips else None
 
 
 def home(request):
