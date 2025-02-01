@@ -4,13 +4,36 @@
 {% block content %} 
 
 <h1>Timeline</h1>
+<table class="table table-striped">
+ <tr> 
+  <td>
 <form action="">
     <input type="text" name="busca_timeline">
     <button type="submit" class="btn btn-success">
         Buscar Evento
     </button>
 </form>
-<br>
+</td>
+<td>
+  <div>
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+      {% endif %}
+  
+      <span class="current">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+      {% endif %}
+    </span>
+  </div>  
+</td>  
+</tr>
 <table class="table table-striped">
     <tr>
     <th>Evento</th>
