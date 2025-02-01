@@ -206,3 +206,8 @@ class Urls(models.Model):
     
 #########################################################
 
+# class Addressip(models.Model):
+#     ip = models.GenericIPAddressField(blank=True, null=True)
+#     date = models.DateField(blank=True, null=True)
+#     time = models.TimeField(blank=True, null=True)
+#     tipo = models.BooleanField(blank=True, null=True)

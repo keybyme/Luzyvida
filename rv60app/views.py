@@ -77,18 +77,17 @@ def chapter(request):
     return render(request, "index.html")    
 
 ########################   Home
-def get_client_ip_address(request):
-    req_headers = request.META
-    x_forwarded_for_value = req_headers.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for_value:
-        ip_addr = x_forwarded_for_value.split(',')[-1].strip() 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
     else:
-        ip_addr = req_headers.get('REMOTE_ADDR')
-    return ip_addr
+        ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
+    return ip
 
 
 def home(request):
-    print(get_client_ip_address(request))
+    print(get_client_ip(request))
       
     return render(request, 'rv60app/index.html')
 
