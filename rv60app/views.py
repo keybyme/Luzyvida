@@ -330,8 +330,8 @@ def timeline(request):
         "difference": abs(diff), 
         "d":diff}) # Absolute difference
         print(diff)     
-    # Set up pagination (12 items per page, you can adjust this number)
-    paginator = Paginator(differences, 12)
+    # Set up pagination (10 items per page, you can adjust this number)
+    paginator = Paginator(differences, 10)
     page_obj = paginator.get_page(page_number)  
  
     context = {
