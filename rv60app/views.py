@@ -77,12 +77,18 @@ def chapter(request):
     return render(request, "index.html")    
 
 ########################   Home
-def get_client_ip(request):
-    ip = request.META.get('REMOTE_ADDR')
-    return ip
+def get_client_ip_address(request):
+    req_headers = request.META
+    x_forwarded_for_value = req_headers.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for_value:
+        ip_addr = x_forwarded_for_value.split(',')[-1].strip() 
+    else:
+        ip_addr = req_headers.get('REMOTE_ADDR')
+    return ip_addr
+
 
 def home(request):
-    print(get_client_ip(request))
+    print(get_client_ip_address(request))
       
     return render(request, 'rv60app/index.html')
 
@@ -97,17 +103,6 @@ def rvlectura(request):
   
 ########################   Doctrina
 
-# def doctrina(request):
-#       busca_doctrina=request.GET.get("busca_doctrina")
-    
-#       mi_lectura = Doctrina.objects.all().order_by('titulo')
-#       context = {'doctrinas': mi_lectura}
-#       if busca_doctrina:
-#                 doct=Doctrina.objects.filter(Q(titulo__icontains=busca_doctrina))
-#                 my_lectura = Doctrina.objects.all()
-#                 context = {'doctrinas': doct}
-#                 return render(request, 'rv60app/doctrina.html', context=context)
-#       return render(request, 'rv60app/doctrina.html', context=context)  
   
 def doctrina(request):
     busca_doctrina = request.GET.get("busca_doctrina")
@@ -332,7 +327,7 @@ def timeline(request):
         "texto": timelines_queryset[i].texto,
         "difference": abs(diff), 
         "d":diff}) # Absolute difference
-        print(diff)     
+        
     # Set up pagination (10 items per page, you can adjust this number)
     paginator = Paginator(differences, 10)
     page_obj = paginator.get_page(page_number)  
