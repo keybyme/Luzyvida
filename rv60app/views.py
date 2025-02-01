@@ -317,10 +317,7 @@ def timeline(request):
             Q(unaccented_title__icontains=busca_timeline_unaccented) 
         ).order_by('-desde')
     else:
-        timelines_queryset = Timeline.objects.all().order_by('-desde')
-    # Set up pagination (5 items per page, you can adjust this number)
-    paginator = Paginator(timelines_queryset, 5)
-    page_obj = paginator.get_page(page_number)    
+        timelines_queryset = Timeline.objects.all().order_by('-desde')  
     
     differences = []
     for i in range(0, len(timelines_queryset)):
@@ -332,8 +329,10 @@ def timeline(request):
         "texto": timelines_queryset[i].texto,
         "difference": abs(diff), 
         "d":diff}) # Absolute difference
-              
-  
+        print(diff)     
+    # Set up pagination (5 items per page, you can adjust this number)
+    paginator = Paginator(differences, 5)
+    page_obj = paginator.get_page(page_number)  
  
     context = {
         'page_obj': page_obj,

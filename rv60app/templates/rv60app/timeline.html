@@ -21,7 +21,7 @@
     </tr> 
   
   
-    {% for x in differences %}
+    {% for x in page_obj %}
     <tr>
     <td>
         {{x.evento}}
@@ -37,7 +37,9 @@
         {{x.hasta}} 
     </td>  
     <td>
+    
        {{x.d}}
+      
     </td>   
     </tr>
     {% endfor%}
