@@ -6,7 +6,7 @@
 <h1>Timeline</h1>
 <table class="table table-striped">
  <tr> 
-  <td colspan="2">
+  <td align="left">
 <form action="">
     <input type="text" name="busca_timeline">
     <button type="submit" class="btn btn-success">
@@ -14,9 +14,8 @@
     </button>
 </form>
 </td>
-<td colspan="3" align="right">
-  <div>
-    <span class="step-links">
+<td align="right">
+  
       {% if page_obj.has_previous %}
         <a href="?page=1{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
         <a href="?page={{ page_obj.previous_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
@@ -30,11 +29,11 @@
         <a href="?page={{ page_obj.next_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
         <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
       {% endif %}
-    </span>
-  </div>  
+    
 </td>  
 </tr>
- 
+</table>
+<table class="table table-striped"> 
     <tr>
     <th>Evento</th>
     <th>Descripcion</th>
@@ -42,8 +41,7 @@
     <th>Hasta</th>
     <th>Duración</th>
     </tr> 
-  
-  
+   
     {% for x in page_obj %}
     <tr>
     <td>
@@ -67,9 +65,11 @@
     </tr>
     {% endfor%}
     <tr>
-      <td colspan="5" align="right">
-        <div>
-            <span class="step-links">
+</table>
+<table class="table table-striped">
+  <tr>
+      <td align="right">
+        
               {% if page_obj.has_previous %}
                 <a href="?page=1{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
                 <a href="?page={{ page_obj.previous_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
@@ -83,8 +83,7 @@
                 <a href="?page={{ page_obj.next_page_number }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
                 <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_timeline %}&busca_timeline={{ busca_timeline }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
               {% endif %}
-            </span>
-          </div>  
+          
     </td></tr>    
 </table>
 {% endblock content %}
