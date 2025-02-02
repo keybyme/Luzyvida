@@ -5,25 +5,17 @@
 {% block content %}
 
 <h1>Videos (Predicaciones)</h1>
-<form action="">
-    <input type="text" name="busca_video">
-    <button type="submit" class="btn btn-success">
-        Buscar Video
-    </button>
-</form>
-<br>
-<div>
-    <ul>
-      {% for x in page_obj %}
-        <li><a href="{{x.link}}" target="_blank">{{x.titulo}} </a> {{ ' | ' }} {{x.id_fk_expositor.nombre}} {{ ' | ' }} {{x.id_fk_doct_exp.doctrina}} 
-
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-  
-  <div>
-    <span class="step-links">
+<table class="table table-striped">
+  <tr>
+    <td>
+      <form action="">
+        <input type="text" name="busca_video">
+        <button type="submit" class="btn btn-success">
+           Buscar Video
+        </button>
+      </form>
+    </td>
+    <td align="right">
       {% if page_obj.has_previous %}
         <a href="?page=1{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
         <a href="?page={{ page_obj.previous_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
@@ -37,8 +29,41 @@
         <a href="?page={{ page_obj.next_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
         <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
       {% endif %}
-    </span>
-  </div>
-   
+    </td>
+  </tr>
+</table>
+<table class="table table-striped">
+  <tr>
+    <th>Nombre del Video</th>
+    <th>Expositor</th>
+    <th>Doctrina</th>
+  </tr>
+      {% for x in page_obj %}
+      <tr>
+        <td><a href="{{x.link}}" target="_blank">{{x.titulo}} </a> </td>
+        <td>{{x.id_fk_expositor.nombre}}</td>
+        <td>{{x.id_fk_doct_exp.doctrina}}</td> 
+      </tr>
+      {% endfor %}
+</table>
+<table class="table table-striped">
+  <tr>
+    <td align="right">
+      {% if page_obj.has_previous %}
+        <a href="?page=1{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+      {% endif %}
+  
+      <span class="current">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_video %}&busca_video={{ busca_video }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+      {% endif %}
+    </td>
+  </tr>
+</table>
 {% endblock content %}
 

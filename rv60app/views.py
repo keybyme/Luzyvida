@@ -95,8 +95,8 @@ def video(request):
         # If no search term, retrieve all videos
         videos_queryset = Video.objects.all().order_by('titulo')
 
-    # Set up pagination (25 items per page, adjustable as needed)
-    paginator = Paginator(videos_queryset, 25)
+    # Set up pagination (16 items per page, adjustable as needed)
+    paginator = Paginator(videos_queryset, 16)
     page_obj = paginator.get_page(page_number)
 
     # Pass the page object and search term to the context
@@ -344,8 +344,8 @@ def urls(request):
     else:
         urls_queryset = Urls.objects.all().order_by('titulo')
 
-    # Set up pagination (10 items per page, adjustable as needed)
-    paginator = Paginator(urls_queryset, 10)
+    # Set up pagination (12 items per page, adjustable as needed)
+    paginator = Paginator(urls_queryset, 12)
     page_obj = paginator.get_page(page_number)
 
     # Pass the page object and search term to the context
