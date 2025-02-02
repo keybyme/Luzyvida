@@ -1,6 +1,6 @@
 from django.db.models import Func, Q, Value
 from django.shortcuts import render, redirect
-from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Video, Urls, Doct_exp, Expositor, Timeline
+from .models import Libro, Capitulo, Versiculo, Diccionario, Lectura, Tema, Autor, Division, Doctrina, Doct_texto, Doct_verso, Video, Urls, Doct_exp, Expositor, Timeline, Addressip
 from django.db import connection
 from django.db.models import Func
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, SearchHeadline
@@ -41,10 +41,27 @@ def location(request):
     response_string = 'The IP address {} is located at the coordinates {}, which is in the city {}.'.format(
         ip_data.get('ip', 'Unknown'), ip_data.get('loc', 'Unknown'), ip_data.get('city', 'Unknown')
     )
+    ip_value = ip_data.get('ip', 'Unknown')
+    loc_value = ip_data.get('loc', 'Unknown')  # Ensuring location is a string
+    city_value = ip_data.get('city', 'Unknown')
 
-    # print(response_string)  # For debugging/
-    print(ip_data.get('loc', 'Unknown'))
-
+    if loc_value == 'Unknown':
+        address_ip = Addressip(
+            ip=ip_value,  # Directly assigning a valid IP or default string
+            location=7878,
+            tipo=1,
+            city=city_value
+        )
+        address_ip.save()
+    else:
+        address_ip = Addressip(
+            ip=ip_value,
+            location=loc_value,
+            tipo=1,
+            city=city_value
+        )
+        address_ip.save()
+        
 def home(request):
     # print(get_client_ip(request))
     location(request)  
