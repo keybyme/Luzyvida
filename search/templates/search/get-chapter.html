@@ -18,9 +18,9 @@
             <h5 class="card-title">{{ book.libro_es }}:{{ chapter.caps_de_libros }}</h5>
             {% for x in contenido %}
             {% if forloop.counter0|divisibleby:2 %}
-            <div class=" py-1 px-1 rounded" style="background:Silver; color:black;">
+            <div class= style="background:Silver; color:black;">
             {% else %} 
-            <div class=" py-1 px-1 rounded" style="background:WhiteSmoke; color:black;">
+            <div class= style="background:WhiteSmoke; color:black;">
             {% endif %} 
             
             <p class="card-text"><div id="marker">{{ x.numero }} </div> {{ x.contenido }}</p>
