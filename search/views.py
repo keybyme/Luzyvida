@@ -44,7 +44,7 @@ def results(request):
 def get_chapter(request, book, chapter):
     book_by_chapter = Libro.objects.get(libro_es=book)
     chapter_by_chapter = Capitulo.objects.get(libros=book_by_chapter, caps_de_libros=chapter)
-    verse_by_chapter = Versiculo.objects.filter(capitulos=chapter_by_chapter) 
+    verse_by_chapter = Versiculo.objects.filter(capitulos=chapter_by_chapter).order_by('id')
     all_chapter = Capitulo.objects.filter(libros=book_by_chapter) 
     print(all_chapter.count()) 
     
