@@ -210,7 +210,7 @@ class Addressip(models.Model):
     ip = models.GenericIPAddressField(blank=True, null=True)
     date = models.DateField(auto_now=True, null=True)
     time = models.TimeField(auto_now=True, null=True)
-    location = models.FloatField(null=True)
+    location = models.DecimalField(decimal_places=6, max_digits=100, null=True)
     tipo = models.IntegerField(null=True)
     city = models.TextField(null=True)
     
