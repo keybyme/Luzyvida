@@ -9,6 +9,47 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+from django.http import HttpResponse
+from django.conf import settings
+import ipinfo
+
+
+
+
+def get_client_ip(request):
+    """Retrieves the client's IP address from request headers."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
+    else:
+        ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
+    return ip
+
+def get_ip_details(ip_address):
+    """Fetches IP geolocation details from ipinfo.io."""
+    ipinfo_token = getattr(settings, "IPINFO_TOKEN", None) 
+    handler = ipinfo.getHandler(ipinfo_token)
+    ip_data = handler.getDetails(ip_address)
+    
+    return ip_data.all  # Convert to dictionary
+
+def location(request):
+    """Dynamically fetches the visitor's IP and retrieves location details."""
+    user_ip = get_client_ip(request)  # Get user's IP dynamically
+    ip_data = get_ip_details(user_ip)  # Fetch IP details
+
+    response_string = 'The IP address {} is located at the coordinates {}, which is in the city {}.'.format(
+        ip_data.get('ip', 'Unknown'), ip_data.get('loc', 'Unknown'), ip_data.get('city', 'Unknown')
+    )
+
+    print(response_string)  # For debugging/logging
+
+
+def home(request):
+    # print(get_client_ip(request))
+    location(request)  
+    return render(request, 'rv60app/index.html')
+
 ########################   Video
 
 class Unaccent(Func):
@@ -77,24 +118,20 @@ def chapter(request):
     return render(request, "index.html")    
 
 ########################   Home
-from ipaddress import ip_address
+# from ipaddress import ip_address
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ips = [ip.strip() for ip in x_forwarded_for.split(',')]
-        for ip in ips:
-            if ip and not ip_address(ip).is_private:  # Skip private IPs
-                return ip
-        return ips[0]  # If all IPs are private, return the first
-    return request.META.get('REMOTE_ADDR')  # Direct access case
+# def get_client_ip(request):
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ips = [ip.strip() for ip in x_forwarded_for.split(',')]
+#         for ip in ips:
+#             if ip and not ip_address(ip).is_private:   
+#                 return ip
+#         return ips[0]  
+#     return request.META.get('REMOTE_ADDR')   
 
 
 
-def home(request):
-    print(get_client_ip(request))
-      
-    return render(request, 'rv60app/index.html')
 
 ########################   RV Lectura
 
@@ -365,3 +402,5 @@ def hoy(request):
     }
     
     return render(request, 'rv60app/hoy.html', context=context)
+
+

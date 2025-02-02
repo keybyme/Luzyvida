@@ -206,8 +206,13 @@ class Urls(models.Model):
     
 #########################################################
 
-# class Addressip(models.Model):
-#     ip = models.GenericIPAddressField(blank=True, null=True)
-#     date = models.DateField(blank=True, null=True)
-#     time = models.TimeField(blank=True, null=True)
-#     tipo = models.BooleanField(blank=True, null=True)
+class Addressip(models.Model):
+    ip = models.GenericIPAddressField(blank=True, null=True)
+    date = models.DateField(auto_now=True, null=True)
+    time = models.TimeField(auto_now=True, null=True)
+    tipo = models.IntegerField(null=True)
+    
+    class Meta:
+        db_table="addressip"
+    def __str__(self):
+        return f"{self.ip} | {self.date} | {self.time} | {self.tipo}"

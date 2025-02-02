@@ -30,6 +30,10 @@ CSRF_TRUSTED_ORIGINS = ['https://keybyme.com', 'https://luzyvida.com', 'http://l
 
 # Application definition
 
+IPINFO_TOKEN = '98a98618b9b8f7'
+
+IPINFO_FILTER = lambda request: request.scheme == 'http'
+
 INSTALLED_APPS = [
     'rv60app',
     'search',
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipinfo_django.middleware.IPinfoMiddleware',
 ]
 
 ROOT_URLCONF = 'reformado.urls'

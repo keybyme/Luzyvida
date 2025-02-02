@@ -29,4 +29,5 @@ urlpatterns = [
   
   path('hoy', views.hoy, name="hoy"),
   
+  
 ]
