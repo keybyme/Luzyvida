@@ -43,7 +43,6 @@ def location(request):
     )
 
     print(response_string)  # For debugging/
-    print(dir(response_string))
 
 
 def home(request):
