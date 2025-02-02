@@ -231,8 +231,8 @@ def tema(request):
     else:
         temas_queryset = Tema.objects.all().order_by('verso_start')
 
-    # Set up pagination (25 items per page, you can adjust this number)
-    paginator = Paginator(temas_queryset, 25)
+    # Set up pagination (15 items per page, you can adjust this number)
+    paginator = Paginator(temas_queryset, 15)
     page_obj = paginator.get_page(page_number)
 
     # Pass the page object to the context

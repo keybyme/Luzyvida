@@ -5,18 +5,38 @@
 {% block content %}
 
 <h1>Doctrinas</h1>
-<form action="">
-    <input type="text" name="busca_doctrina">
-    <button type="submit" class="btn btn-success">
-        Buscar Doctrina
-    </button>
-</form>
-<br>
 <table class="table table-striped">
-    <tr>
+  <tr>
+    <td width="50%">
+      <form action="">
+        <input type="text" name="busca_doctrina">
+        <button type="submit" class="btn btn-success">
+          Buscar Doctrina
+        </button>
+      </form>
+    </td>
+    <td colspan="2" align="right"> 
+        {% if page_obj.has_previous %}
+          <a href="?page=1{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
+          <a href="?page={{ page_obj.previous_page_number }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
+        {% endif %}
+    
+        <span class="current">
+          Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+    
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
+        {% endif %}
+      </td>
+  </tr>
+</table>
+<table class="table table-striped">
+  <tr>
     <th>Doctrina</th>
     <th>Descripcion</th>
-    </tr>
+  </tr>
 {% for x in page_obj %}
     <tr>
     <td>
@@ -28,9 +48,9 @@
     </td>
     </tr>
 {% endfor%}
-<tr><td colspan="2">
-    <div>
-        <span class="step-links">
+</table> 
+<table class="table table-striped">
+<tr><td colspan="2" align="right"> 
           {% if page_obj.has_previous %}
             <a href="?page=1{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Primera&nbsp;&nbsp;</a>
             <a href="?page={{ page_obj.previous_page_number }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Previa&nbsp;&nbsp;</a>
@@ -44,8 +64,7 @@
             <a href="?page={{ page_obj.next_page_number }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Próxima&nbsp;&nbsp;</a>
             <a href="?page={{ page_obj.paginator.num_pages }}{% if busca_doctrina %}&busca_doctrina={{ busca_doctrina }}{% endif %}">&nbsp;&nbsp;Ultima&nbsp;&nbsp;</a>
           {% endif %}
-        </span>
-      </div>  
+      
 </td></tr>    
 </table>
 {% endblock content %}
