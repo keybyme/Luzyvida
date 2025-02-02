@@ -217,4 +217,4 @@ class Addressip(models.Model):
     class Meta:
         db_table="addressip"
     def __str__(self):
-        return f"{self.ip}"
+        return f"{self.ip} | {self.date} | {self.time} | {self.location} | {self.tipo} | {self.city}"
