@@ -48,7 +48,7 @@ def location(request):
     if loc_value == 'Unknown':
         address_ip = Addressip(
             ip=ip_value,  # Directly assigning a valid IP or default string
-            location=7878,
+            location=str(7878),
             tipo=1,
             city=city_value
         )
@@ -56,7 +56,7 @@ def location(request):
     else:
         address_ip = Addressip(
             ip=ip_value,
-            location=loc_value,
+            location=str(loc_value),
             tipo=1,
             city=city_value
         )
