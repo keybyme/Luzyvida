@@ -42,7 +42,8 @@ def location(request):
         ip_data.get('ip', 'Unknown'), ip_data.get('loc', 'Unknown'), ip_data.get('city', 'Unknown')
     )
 
-    print(response_string)  # For debugging/logging
+    print(response_string)  # For debugging/
+    print(dir(response_string))
 
 
 def home(request):
