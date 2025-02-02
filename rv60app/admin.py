@@ -25,3 +25,4 @@ admin.site.register(Addressip)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('titulo',)
     search_fields = ('titulo',)
+    
