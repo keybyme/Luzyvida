@@ -29,5 +29,6 @@ urlpatterns = [
   
   path('hoy', views.hoy, name="hoy"),
   
+  path('contact_view', views.contact_view, name='contact_view'),
   
 ]

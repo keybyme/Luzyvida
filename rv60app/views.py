@@ -5,12 +5,11 @@ from django.db import connection
 from django.db.models import Func
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, SearchHeadline
 from django.core.paginator import Paginator
-
-
-# Create your views here.
-
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib import messages
+from .forms import ContactForm
 import ipinfo
 
 
@@ -421,3 +420,28 @@ def hoy(request):
     return render(request, 'rv60app/hoy.html', context=context)
 
 
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            # Send email
+            send_mail(
+                subject=f"New Contact Form Submission: {subject}",
+                message=f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+                from_email='jorge@luzyvida.com',  # Change this to your domain email
+                recipient_list=['wesnetwork@keybyme.com'],  # Your email
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Your message has been sent successfully!')
+            # return redirect('rv60app/contact2.html')
+            return render(request, 'rv60app/contact.html', {'form': form})
+    else:
+        form = ContactForm()
+
+    return render(request, 'rv60app/contact.html', {'form': form})
