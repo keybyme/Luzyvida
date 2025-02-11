@@ -39,25 +39,32 @@
     <!-- Verses Display -->
     {% if verses %}
     <tr>
-        <td colspan="2">
+        <td>
             {% comment %} <h3>Verses in Chapter {{ selected_chapter.caps_de_libros }}</h3> {% endcomment %}
             <form method="post">
             {% csrf_token %}
             <button name="prev" value="prev" type="submit" class="btn btn-primary">Capitulo Anterior</button>
-            <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
-            </form>
-        </td>
-    </tr>  
-  
-    {% for verse in verses %}
-
         
+            <button name="next" value="next" type="submit" class="btn btn-danger">Pr&oacute;ximo Capitulo</button>
+        </td>    
+            <!-- Button trigger modal -->
+        <td align="right">     
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Refinar búsqueda
+            </button>
+        </td>
+            </form>
+    </tr>  
+</table>
+<table>
+    {% for verse in verses %}
         {% for x in holly %}
         {% if verse.id == x.verso_start %}       
-        <br>
-        <tr><td colspan="2">
+        <tr>
+            <td colspan="2">
                 <center><strong><h4 style="color:DodgerBlue;">{{ x.titulo }}</h4></strong></center> 
-        </td></tr>        
+            </td>
+        </tr>        
         {% endif %}  
         {% endfor %}            
         <tr>
@@ -86,5 +93,33 @@
         </td>
     </tr>    
     </table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar palabra</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% include "search/search.html" %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .custom-modal-width {
+        max-width: 60%;
+    }
+</style>
+
 
 {% endblock content %}
