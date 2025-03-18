@@ -438,7 +438,7 @@ def contact_view(request):
                 fail_silently=False,
             )
 
-            messages.success(request, 'Your message has been sent successfully!')
+            messages.success(request, 'Su mensaje ha sido enviado!')
             # return redirect('rv60app/contact2.html')
             return render(request, 'rv60app/contact.html', {'form': form})
     else:
